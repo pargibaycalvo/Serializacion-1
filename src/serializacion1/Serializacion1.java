@@ -24,13 +24,19 @@ public class Serializacion1 {
     /**
      * @param args the command line arguments
      */
-        static File directorio = new File("/home/oracle/NetBeansProjects/aleatorio/archivos");
-        static File archivo = new File("/home/oracle/NetBeansProjects/aleatorio/archivos/serial.txt");
+        static File directorio = new File("/home/oracle/NetBeansProjects/serializacion1/archivos");
+        static File archivo = new File("/home/oracle/NetBeansProjects/serializacion1/archivos/serial.txt");
         
     public static void main(String[] args) {
-        // TODO code application logic here
-        mclase obs = new mclase("ola",-7,2.7E10);
-        System.out.println(obs.toString());
+            try {
+                // TODO code application logic here
+                carpeta(directorio);
+                archivo(archivo);
+                escribir(archivo);
+                lectura(archivo);
+            } catch (IOException ex) {
+                Logger.getLogger(Serializacion1.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     static void carpeta(File directorio){
@@ -49,11 +55,13 @@ public class Serializacion1 {
             archivo.createNewFile();
     }
     
-    static void escribir(File archivo, mclase obs){
+    static void escribir(File archivo){
         try{
-         ObjectOutputStream arch = new ObjectOutputStream(new FileOutputStream(archivo));
-         arch.writeObject(obs);
-         arch.close();
+            ObjectOutputStream arch = new ObjectOutputStream(new FileOutputStream(archivo));
+            mclase obs = new mclase("ola",-7,2.7E10);
+            arch.writeObject(obs);
+            System.out.println(obs.toString());
+            arch.close();
         }catch (FileNotFoundException ex) {
             Logger.getLogger(Serializacion1.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
